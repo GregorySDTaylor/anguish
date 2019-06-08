@@ -1,10 +1,12 @@
 package anguish;
 
+import java.util.List;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +16,7 @@ public class Phones {
 	private static final Path COMMON_PATH = Paths.get("common-words.txt");
 	private static final Path PHONES_PATH = Paths.get("phones.txt");
 	public static final Map<String, String[]> COMPLETE_DICTIONARY = buildCompleteDictionary();
+	public static List<String> COMMON_LIST = new ArrayList<String>();
 	public static final Map<String, String[]> COMMON_DICTIONARY = buildCommonDictionary();
 	public static final Map<String, String> PHONES = buildPhones();
 	
@@ -25,6 +28,7 @@ public class Phones {
 			reader.lines().forEach(line -> {
 				String upperLine = line.trim().toUpperCase();
 				if (COMPLETE_DICTIONARY.containsKey(upperLine)) {
+					COMMON_LIST.add(upperLine);
 					dictionary.put(upperLine, COMPLETE_DICTIONARY.get(upperLine));
 				}
 			});
@@ -102,10 +106,6 @@ public class Phones {
 		String phone1NumberString = phone1Numbers.toString();
 		String phone2LetterString = phone2Letters.toString();
 		String phone2NumberString = phone2Numbers.toString();
-		System.out.println("\nphone1Letters: " + phone1LetterString);
-		System.out.println("phone1Numbers: " + phone1NumberString);
-		System.out.println("phone2Letters: " + phone2LetterString);
-		System.out.println("phone2Numbers: " + phone2NumberString);
 		if (phone1LetterString.equals(phone2LetterString)) {
 			score++;
 		}

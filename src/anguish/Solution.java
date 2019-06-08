@@ -15,10 +15,25 @@ public class Solution {
 		score = 0;
 	}
 	
+	public Solution(List<String> words, List<String> phones, int score) {
+		this.words = new ArrayList<String>();
+		this.phones = new ArrayList<String>();
+		this.score = 0;
+		this.words.addAll(words);
+		this.phones.addAll(phones);
+		this.score += score;
+	}
+	
+	public Solution newWithAdd(String additionalWord, String[] additionalPhones, int additionalScore) {
+		Solution newSolution = new Solution(words, phones, score);
+		newSolution.add(additionalWord, additionalPhones, additionalScore);
+		return newSolution;
+	}
+	
 	public void add(String additionalWord, String[] additionalPhones, int additionalScore) {
-		words.add(additionalWord);
-		phones.addAll(Arrays.asList(additionalPhones));
-		score += additionalScore;
+		this.words.add(additionalWord);
+		this.phones.addAll(Arrays.asList(additionalPhones));
+		this.score += additionalScore;
 	}
 	
 	public int getSize() {
@@ -27,7 +42,10 @@ public class Solution {
 	
 	@Override
 	public String toString() {
-		return "TODO";
+		return "\"" + String.join(" ", words) + "\" (" + score + ")";
 	}
 
+	public int getScore() {
+		return score;
+	}
 }
